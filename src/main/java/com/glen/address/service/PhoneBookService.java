@@ -48,8 +48,6 @@ public class PhoneBookService {
     public void deletePhoneBookEntryById(String id){
         PhoneBook phoneBook = mongoTemplate.findById(id, PhoneBook.class);
         mongoTemplate.remove(phoneBook);
-
-//        phoneBookRepo.deleteById(id);
     }
 
     public Page<PhoneBook> getAllPhoneBookEntry(int page, int size){
@@ -61,15 +59,10 @@ public class PhoneBookService {
         query.limit( pageable.getPageSize() );
         List<PhoneBook> phoneBooks = mongoTemplate.find(query, PhoneBook.class);
         return new PageImpl<PhoneBook>(phoneBooks, pageable, count);
-
-//        Pageable paging = PageRequest.of(page, size, Sort.by( "first" ) );
-//        return phoneBookRepo.findAll(paging);
     }
 
     public PhoneBook modifyPhoneBookEntry(PhoneBook phoneBook){
         return mongoTemplate.save(phoneBook);
-
-//        return phoneBookRepo.save(phoneBook);
     }
 
     public Page<PhoneBook> getPagePhoneBookEntryByType(int page, int size, String type){
@@ -82,9 +75,6 @@ public class PhoneBookService {
         query.limit( pageable.getPageSize() );
         List<PhoneBook> phoneBooks = mongoTemplate.find(query, PhoneBook.class);
         return new PageImpl<PhoneBook>(phoneBooks, pageable, count);
-
-//        Pageable paging = PageRequest.of(page, size, Sort.by( "first" ) );
-//        return phoneBookRepo.getPagePhoneBookEntryByType(type, paging);
     }
 
     public Page<PhoneBook> getAllPhoneBookEntryWithoutSort(int page, int size){
@@ -96,9 +86,6 @@ public class PhoneBookService {
         query.limit( pageable.getPageSize() );
         List<PhoneBook> phoneBooks = mongoTemplate.find(query, PhoneBook.class);
         return new PageImpl<PhoneBook>(phoneBooks, pageable, count);
-
-//        Pageable paging = PageRequest.of(page, size);
-//        return phoneBookRepo.findAll(paging);
     }
 
     public Page<PhoneBook> getAllPhoneBookEntrySortedByLast(int page, int size){
@@ -111,22 +98,17 @@ public class PhoneBookService {
         query.limit( pageable.getPageSize() );
         List<PhoneBook> phoneBooks = mongoTemplate.find(query, PhoneBook.class);
         return new PageImpl<PhoneBook>(phoneBooks, pageable, count);
-
-//        Pageable paging = PageRequest.of(page, size, Sort.by( "last" ) );
-//        return phoneBookRepo.findAll(paging);
     }
 
     public List<PhoneBook> getAllPhoneBookEntryByFirstName(String first){
         Query query = new Query();
         query.addCriteria( where("first").is( first ) );
         return mongoTemplate.find(query, PhoneBook.class);
-//        return phoneBookRepo.findByFirst(first);
     }
 
     public List<PhoneBook> getAllPhoneBookEntryByLastName(String last){
         Query query = new Query();
         query.addCriteria( where("last").is( last ) );
         return mongoTemplate.find(query, PhoneBook.class);
-//        return phoneBookRepo.findByLast(last);
     }
 }
